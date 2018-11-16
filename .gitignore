@@ -1,0 +1,5 @@
+.idea/*
+!.idea/codeStyles
+!.idea/inspectionProfiles
+target/
+*.iml

@@ -1,0 +1,10 @@
+hu.invitech.insight.processor.sdk.core
+hu.invitech.insight.processor.sdk.core.api
+hu.invitech.insight.processor.sdk.core.util
+hu.invitech.insight.processor.sdk.v1
+hu.invitech.insight.processor.sdk.v1.api
+hu.invitech.insight.processor.sdk.v1.data
+hu.invitech.insight.processor.sdk.v1.function
+hu.invitech.insight.processor.sdk.v1.resource
+hu.invitech.insight.processor.sdk.v1.server
+hu.invitech.insight.processor.sdk.v1.util

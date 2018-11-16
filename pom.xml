@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>hu.invitech.insight.platform</groupId>
+    <artifactId>processor-sdk-java</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <organization>
+        <name>Invitech Solutions</name>
+        <url>https://www.invitech.hu</url>
+    </organization>
+
+    <name>Insight Processor SDK Java</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.7</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>insight-processor-sdk-java</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <windowtitle>Insight Processor SDK</windowtitle>
+                    <subpackages>hu.invitech.insight.processor.sdk</subpackages>
+                    <groups>
+                        <group>
+                            <title>Core</title>
+                            <packages>hu.invitech.insight.processor.sdk.core*</packages>
+                        </group>
+                        <group>
+                            <title>Version 1</title>
+                            <packages>hu.invitech.insight.processor.sdk.v1*</packages>
+                        </group>
+                    </groups>
+                    <excludePackageNames>hu.invitech.insight.processor.sdk.example</excludePackageNames>
+                    <serialwarn>true</serialwarn>
+                    <author>false</author>
+                    <noindex>true</noindex>
+                    <notree>true</notree>
+                    <notimestamp>true</notimestamp>
+                    <show>private</show>
+                    <reportOutputDirectory>${project.basedir}</reportOutputDirectory>
+                    <destDir>docs</destDir>
+                    <stylesheetfile></stylesheetfile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

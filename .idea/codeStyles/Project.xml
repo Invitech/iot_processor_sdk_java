@@ -1,0 +1,256 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <option name="RIGHT_MARGIN" value="180" />
+    <CssCodeStyleSettings>
+      <option name="HEX_COLOR_UPPER_CASE" value="true" />
+      <option name="HEX_COLOR_LONG_FORMAT" value="true" />
+    </CssCodeStyleSettings>
+    <HTMLCodeStyleSettings>
+      <option name="HTML_ATTRIBUTE_WRAP" value="4" />
+      <option name="HTML_KEEP_BLANK_LINES" value="0" />
+      <option name="HTML_ALIGN_TEXT" value="true" />
+      <option name="HTML_SPACE_INSIDE_EMPTY_TAG" value="true" />
+      <option name="HTML_ENFORCE_QUOTES" value="true" />
+    </HTMLCodeStyleSettings>
+    <JSCodeStyleSettings>
+      <option name="FORCE_SEMICOLON_STYLE" value="true" />
+      <option name="FIELD_PREFIX" value="" />
+      <option name="USE_DOUBLE_QUOTES" value="false" />
+      <option name="FORCE_QUOTE_STYlE" value="true" />
+      <option name="ENFORCE_TRAILING_COMMA" value="Remove" />
+      <option name="VAR_DECLARATION_WRAP" value="5" />
+      <option name="OBJECT_LITERAL_WRAP" value="2" />
+    </JSCodeStyleSettings>
+    <JSON>
+      <option name="OBJECT_WRAPPING" value="5" />
+      <option name="ARRAY_WRAPPING" value="5" />
+    </JSON>
+    <JavaCodeStyleSettings>
+      <option name="SUBCLASS_NAME_SUFFIX" value="" />
+      <option name="GENERATE_FINAL_LOCALS" value="true" />
+      <option name="GENERATE_FINAL_PARAMETERS" value="true" />
+      <option name="ANNOTATION_PARAMETER_WRAP" value="5" />
+      <option name="JD_ALIGN_PARAM_COMMENTS" value="false" />
+      <option name="JD_ALIGN_EXCEPTION_COMMENTS" value="false" />
+      <option name="JD_ADD_BLANK_AFTER_PARM_COMMENTS" value="true" />
+      <option name="JD_ADD_BLANK_AFTER_RETURN" value="true" />
+      <option name="JD_KEEP_INVALID_TAGS" value="false" />
+    </JavaCodeStyleSettings>
+    <JavaeeCodeStyleSettings>
+      <option name="SERVLET_CLASS_SUFFIX" value="Servlet" />
+      <option name="FILTER_CLASS_SUFFIX" value="Filter" />
+    </JavaeeCodeStyleSettings>
+    <SqlCodeStyleSettings version="0">
+      <option name="myVersion" value="0" />
+      <option name="ALIAS_CASE" value="4" />
+      <option name="KEYWORD_CASE" value="0" />
+      <option name="TYPE_CASE" value="3" />
+      <option name="SET_EL_WRAP" value="0" />
+      <option name="SET_EL_COMMA" value="0" />
+      <option name="WITH_EL_WRAP" value="0" />
+      <option name="WITH_EL_COMMA" value="0" />
+      <option name="SELECT_EL_WRAP" value="3" />
+      <option name="FROM_EL_WRAP" value="2" />
+      <option name="WHERE_EL_WRAP" value="3" />
+      <option name="WHERE_EL_BOUND" value="2" />
+      <option name="CORTEGE_SPACE_BEFORE_L_PAREN" value="false" />
+      <option name="EXPR_CASE_WHEN_WRAP" value="false" />
+      <option name="EXPR_CASE_THEN_WRAP" value="true" />
+      <option name="PRIMARY_KEY_NAME_TEMPLATE" value="{table}_{columns}_pk" />
+      <option name="ALIGN_TYPE_IN_CREATE_STATEMENT" value="false" />
+      <option name="ALIGN_TYPE_IN_BLOCK_STATEMENT" value="false" />
+      <option name="ALIGN_TYPE_IN_ARGUMENT_DEFINITION" value="false" />
+      <option name="WRAP_INSIDE_CREATE_TABLE" value="5" />
+      <option name="WRAP_INSIDE_ARGUMENT_DEFINITION" value="5" />
+      <option name="WRAP_INSIDE_CALL_EXPRESSION" value="5" />
+      <option name="WRAP_PARENTHESIZED_EXPRESSION_INSIDE_VALUES" value="5" />
+    </SqlCodeStyleSettings>
+    <TypeScriptCodeStyleSettings>
+      <option name="FORCE_SEMICOLON_STYLE" value="true" />
+      <option name="FIELD_PREFIX" value="" />
+      <option name="USE_DOUBLE_QUOTES" value="false" />
+      <option name="FORCE_QUOTE_STYlE" value="true" />
+      <option name="ENFORCE_TRAILING_COMMA" value="Remove" />
+      <option name="INDENT_CHAINED_CALLS" value="false" />
+    </TypeScriptCodeStyleSettings>
+    <XML>
+      <option name="XML_ATTRIBUTE_WRAP" value="4" />
+      <option name="XML_KEEP_BLANK_LINES" value="1" />
+    </XML>
+    <yaml>
+      <option name="INDENT_SEQUENCE_VALUE" value="true" />
+      <option name="SEQUENCE_ON_NEW_LINE" value="true" />
+    </yaml>
+    <codeStyleSettings language="CSS">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="HTML">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="JAVA">
+      <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="false" />
+      <option name="BLOCK_COMMENT_AT_FIRST_COLUMN" value="false" />
+      <option name="LINE_COMMENT_ADD_SPACE" value="true" />
+      <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
+      <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false" />
+      <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
+      <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+      <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
+      <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
+      <option name="ALIGN_MULTILINE_RESOURCES" value="false" />
+      <option name="ALIGN_MULTILINE_FOR" value="false" />
+      <option name="CALL_PARAMETERS_WRAP" value="5" />
+      <option name="CALL_PARAMETERS_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="CALL_PARAMETERS_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="METHOD_PARAMETERS_WRAP" value="5" />
+      <option name="METHOD_PARAMETERS_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="METHOD_PARAMETERS_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="RESOURCE_LIST_WRAP" value="5" />
+      <option name="RESOURCE_LIST_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="RESOURCE_LIST_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="EXTENDS_LIST_WRAP" value="5" />
+      <option name="THROWS_LIST_WRAP" value="5" />
+      <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
+      <option name="PARENTHESES_EXPRESSION_LPAREN_WRAP" value="true" />
+      <option name="PARENTHESES_EXPRESSION_RPAREN_WRAP" value="true" />
+      <option name="BINARY_OPERATION_WRAP" value="5" />
+      <option name="TERNARY_OPERATION_WRAP" value="5" />
+      <option name="FOR_STATEMENT_WRAP" value="5" />
+      <option name="FOR_STATEMENT_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="FOR_STATEMENT_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="ARRAY_INITIALIZER_WRAP" value="5" />
+      <option name="ARRAY_INITIALIZER_LBRACE_ON_NEXT_LINE" value="true" />
+      <option name="ARRAY_INITIALIZER_RBRACE_ON_NEXT_LINE" value="true" />
+      <option name="ASSERT_STATEMENT_WRAP" value="5" />
+      <option name="ASSERT_STATEMENT_COLON_ON_NEXT_LINE" value="true" />
+      <option name="IF_BRACE_FORCE" value="3" />
+      <option name="DOWHILE_BRACE_FORCE" value="3" />
+      <option name="WHILE_BRACE_FORCE" value="3" />
+      <option name="FOR_BRACE_FORCE" value="3" />
+      <option name="ENUM_CONSTANTS_WRAP" value="5" />
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+      <arrangement>
+        <groups>
+          <group>
+            <type>GETTERS_AND_SETTERS</type>
+            <order>KEEP</order>
+          </group>
+          <group>
+            <type>OVERRIDDEN_METHODS</type>
+            <order>KEEP</order>
+          </group>
+        </groups>
+      </arrangement>
+    </codeStyleSettings>
+    <codeStyleSettings language="JSON">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="JSP">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="JSPX">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="JavaScript">
+      <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
+      <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+      <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
+      <option name="ALIGN_MULTILINE_FOR" value="false" />
+      <option name="CALL_PARAMETERS_WRAP" value="5" />
+      <option name="CALL_PARAMETERS_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="CALL_PARAMETERS_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="METHOD_PARAMETERS_WRAP" value="5" />
+      <option name="METHOD_PARAMETERS_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="METHOD_PARAMETERS_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="EXTENDS_LIST_WRAP" value="5" />
+      <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
+      <option name="BINARY_OPERATION_WRAP" value="5" />
+      <option name="TERNARY_OPERATION_WRAP" value="5" />
+      <option name="FOR_STATEMENT_WRAP" value="5" />
+      <option name="FOR_STATEMENT_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="FOR_STATEMENT_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="ARRAY_INITIALIZER_WRAP" value="5" />
+      <option name="ARRAY_INITIALIZER_LBRACE_ON_NEXT_LINE" value="true" />
+      <option name="ARRAY_INITIALIZER_RBRACE_ON_NEXT_LINE" value="true" />
+      <option name="IF_BRACE_FORCE" value="3" />
+      <option name="DOWHILE_BRACE_FORCE" value="3" />
+      <option name="WHILE_BRACE_FORCE" value="3" />
+      <option name="FOR_BRACE_FORCE" value="3" />
+      <arrangement>
+        <groups>
+          <group>
+            <type>GROUP_PROPERTY_FIELD_WITH_GETTER_SETTER</type>
+            <order>KEEP</order>
+          </group>
+          <group>
+            <type>OVERRIDDEN_METHODS</type>
+            <order>KEEP</order>
+          </group>
+        </groups>
+      </arrangement>
+    </codeStyleSettings>
+    <codeStyleSettings language="LESS">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="SASS">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="SCSS">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="SQL">
+      <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="2" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="TypeScript">
+      <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
+      <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
+      <option name="ALIGN_MULTILINE_FOR" value="false" />
+      <option name="CALL_PARAMETERS_WRAP" value="5" />
+      <option name="CALL_PARAMETERS_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="CALL_PARAMETERS_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="METHOD_PARAMETERS_WRAP" value="5" />
+      <option name="METHOD_PARAMETERS_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="METHOD_PARAMETERS_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="EXTENDS_LIST_WRAP" value="5" />
+      <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
+      <option name="BINARY_OPERATION_WRAP" value="5" />
+      <option name="TERNARY_OPERATION_WRAP" value="5" />
+      <option name="FOR_STATEMENT_WRAP" value="5" />
+      <option name="FOR_STATEMENT_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="FOR_STATEMENT_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="ARRAY_INITIALIZER_WRAP" value="5" />
+      <option name="ARRAY_INITIALIZER_LBRACE_ON_NEXT_LINE" value="true" />
+      <option name="ARRAY_INITIALIZER_RBRACE_ON_NEXT_LINE" value="true" />
+      <option name="IF_BRACE_FORCE" value="3" />
+      <option name="DOWHILE_BRACE_FORCE" value="3" />
+      <option name="WHILE_BRACE_FORCE" value="3" />
+      <option name="FOR_BRACE_FORCE" value="3" />
+    </codeStyleSettings>
+    <codeStyleSettings language="XML">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
+  </code_scheme>
+</component>

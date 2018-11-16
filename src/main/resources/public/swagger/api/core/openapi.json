@@ -1,0 +1,41 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Insights Platform",
+    "description": "Processor API",
+    "version": "Core"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Version",
+      "description": "Provides a service for retrieving the latest supported protocol version of the processor."
+    }
+  ],
+  "paths": {
+    "/core/version": {
+      "get": {
+        "tags": ["Version"],
+        "summary": "Returns the latest supported protocol version of the processor",
+        "operationId": "getVersion",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

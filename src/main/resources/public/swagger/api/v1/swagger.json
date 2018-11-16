@@ -1,0 +1,626 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Insights Platform",
+    "description": "Processor API",
+    "version": "v1"
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Function",
+      "description": "Provides a service for getting information about available resource functions, and calling functions on managed resources."
+    }, {
+      "name": "Resource",
+      "description": "Provides a service for getting information about available resource types, and adding/removing managed resources."
+    }, {
+      "name": "Server",
+      "description": "Provides a service for assigning/unassigning servers, and changing tokens of assigned servers."
+    }
+  ],
+  "paths": {
+    "/v1/function": {
+      "get": {
+        "tags": ["Function"],
+        "summary": "Returns the description of available functions for each resource type",
+        "description": "",
+        "operationId": "getFunctionMap",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FunctionMap"
+            }
+          },
+          "401": {
+            "description": "Unauthorized: JWT token missing or invalid"
+          },
+          "403": {
+            "description": "JWT token is not assigned or it was previously assigned to a different server than the caller"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Function"],
+        "summary": "Calls a function on a resource with the supplied parameters",
+        "description": "",
+        "operationId": "callFunction",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/FunctionCall"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FunctionReturn"
+            }
+          },
+          "400": {
+            "description": "A function with this name doesn't exist"
+          },
+          "401": {
+            "description": "Unauthorized: JWT token missing or invalid"
+          },
+          "403": {
+            "description": "JWT token is not assigned or it was previously assigned to a different server than the caller"
+          },
+          "404": {
+            "description": "A resource with this id doesn't exist"
+          },
+          "500": {
+            "description": "The function call encountered an unrecoverable error"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/v1/resource": {
+      "get": {
+        "tags": ["Resource"],
+        "summary": "Returns the description of the available resource types",
+        "description": "",
+        "operationId": "getResourceTypeMap",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResourceTypeMap"
+            }
+          },
+          "401": {
+            "description": "Unauthorized: JWT token missing or invalid"
+          },
+          "403": {
+            "description": "JWT token is not assigned or it was previously assigned to a different server than the caller"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Resource"],
+        "summary": "Adds a new resource with the supplied parameters",
+        "description": "",
+        "operationId": "addResource",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ResourceInfo"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "A resource type with this name doesn't exist"
+          },
+          "401": {
+            "description": "Unauthorized: JWT token missing or invalid"
+          },
+          "403": {
+            "description": "JWT token is not assigned or it was previously assigned to a different server than the caller"
+          },
+          "409": {
+            "description": "A resource with this is already exists"
+          },
+          "500": {
+            "description": "An unrecoverable error occured while adding the resource"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/v1/resource/{id}": {
+      "delete": {
+        "tags": ["Resource"],
+        "summary": "Removes the resource with the given id",
+        "description": "",
+        "operationId": "removeResource",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized: JWT token missing or invalid"
+          },
+          "403": {
+            "description": "JWT token is not assigned or it was previously assigned to a different server than the caller"
+          },
+          "404": {
+            "description": "A resource with this id doesn't exist"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/v1/server/assign": {
+      "post": {
+        "tags": ["Server"],
+        "summary": "Assigns a server to the processor with the given token",
+        "description": "",
+        "operationId": "assignServer",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ServerInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          },
+          "403": {
+            "description": "The token is empty or invalid"
+          }
+        }
+      }
+    },
+    "/v1/server/unassign": {
+      "post": {
+        "tags": ["Server"],
+        "summary": "Unassigns a server from the processor with the given token",
+        "description": "",
+        "operationId": "unassignServer",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ServerInfo"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "The token is empty, invalid, or assigned to a different server than the caller"
+          }
+        }
+      }
+    },
+    "/v1/server/token": {
+      "post": {
+        "tags": ["Server"],
+        "summary": "Changes the token of an assigned server",
+        "description": "",
+        "operationId": "changeToken",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ChangeToken"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "The old or the new token is missing or they are both the same"
+          },
+          "403": {
+            "description": "JWT token is empty, invalid, unassigned or assigned to a different server than the caller"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "JWT": {
+      "description": "JWT bearer token signed with RSA256, the subject is 'processor', the issuer is the base url of the platform and the claims contain the 'processorId' of this processor",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "FunctionInfo": {
+      "description": "Represents information about an available function",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "name": {
+          "description": "Name of the function. This will be used to identify the function when called.",
+          "type": "string",
+          "required": "true"
+        },
+        "parameters": {
+          "description": "Required parameters of the function. The map should not be null, but it can be empty if there are no parameters.",
+          "type": "object",
+          "required": "true",
+          "additionalProperties": {
+            "$ref": "#/definitions/TypedDefaultValue"
+          }
+        },
+        "returnValues": {
+          "description": "Return values of the function.",
+          "type": "object",
+          "required": "true",
+          "additionalProperties": {
+            "type": "string",
+            "enum": ["STRING", "INTEGER", "FLOAT", "BOOLEAN"]
+          }
+        }
+      }
+    },
+    "FunctionMap": {
+      "description": "Represents the description of all the available functions for each resource type",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "resourceTypeFunctions": {
+          "description": "Description of available functions for each resource type supported by this processor",
+          "type": "object",
+          "required": "true",
+          "additionalProperties": {
+            "description": "Collection of defined functions for a resource type",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/FunctionInfo"
+            }
+          }
+        }
+      }
+    },
+    "TypedDefaultValue": {
+      "description": "Represents information about function and resource type parameters",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "type": {
+          "description": "Expected data type.",
+          "type": "string",
+          "required": "true",
+          "enum": ["STRING", "INTEGER", "FLOAT", "BOOLEAN"]
+        },
+        "defaultValue": {
+          "description": "Default value to be used in case the parameter is not supplied.",
+          "type": "string",
+          "required": "false"
+        },
+        "possibleValues": {
+          "description": "Collection of possible values. If populated, only these values are accepted.",
+          "type": "array",
+          "required": "false",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FunctionReturn": {
+      "description": "Represents the returned values from a function",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "data": {
+          "description": "The actual data map returned from a function",
+          "type": "object",
+          "required": "true",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FunctionCall": {
+      "description": "Represents the parameters required for calling functions",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "resourceId": {
+          "description": "Id of the resource on which the function will be called",
+          "type": "integer",
+          "required": "true",
+          "format": "int32"
+        },
+        "functionName": {
+          "description": "Name of the function to be called",
+          "type": "string",
+          "required": "true"
+        },
+        "parameters": {
+          "description": "Parameters of the function call. The map should not be null, but it can be empty if there are no parameters.",
+          "type": "object",
+          "required": "true",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "IncomingDataInfo": {
+      "description": "Represents the information about incoming data produced by a resource",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "key": {
+          "description": " The key used to identify this data",
+          "type": "string",
+          "required": "true"
+        },
+        "dataType": {
+          "description": "The type of this data. If this is not OBJECT, children has to be empty. If this is OBJECT, sensorType has to be empty.",
+          "type": "string",
+          "required": "true",
+          "enum": ["STRING", "INTEGER", "FLOAT", "BOOLEAN", "OBJECT", "DATE_STRING"]
+        },
+        "sensorType": {
+          "description": "Optional sensor type that defines how to handle this data. If not empty, dataType cannot be OBJECT and children has to be empty.",
+          "type": "string",
+          "required": "false"
+        },
+        "possibleValues": {
+          "description": "Optional list of possible values. If populated, only these values are accepted.",
+          "type": "array",
+          "required": "false",
+          "items": {
+            "type": "string"
+          }
+        },
+        "validationInfo": {
+          "description": "Optional data validation information.",
+          "type": "object",
+          "required": "false",
+          "additionalProperties": {
+            "$ref": "#/definitions/ValidationInfo"
+          }
+        },
+        "children": {
+          "description": "Optional children of this data. Can be used to define a tree of objects. If not empty, dataType has to be OBJECT and sensorType has to be null.",
+          "type": "array",
+          "uniqueItems": true,
+          "required": "false",
+          "items": {
+            "$ref": "#/definitions/IncomingDataInfo"
+          }
+        }
+      }
+    },
+    "ValidationInfo": {
+      "description": "Represents data validation information",
+      "type": "object",
+      "required": "false",
+      "properties": {
+        "min": {
+          "description": "Minimum value for validating numbers. A number will be considered valid if it's greater than or equal to this value.",
+          "type": "number",
+          "format": "double",
+          "required": "false"
+        },
+        "max": {
+          "description": "Maximum value for validating numbers. A number will be considered valid if it's less than or equal to this value.",
+          "type": "number",
+          "format": "double",
+          "required": "false"
+        },
+        "regex": {
+          "description": "Regex for validating strings.",
+          "type": "string",
+          "required": "false"
+        }
+      }
+    },
+    "ResourceTypeInfo": {
+      "description": "Represents the information about an available resource type",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "name": {
+          "description": "Name of the resource type. This will be used to identify the resource type when a new resource is added.",
+          "type": "string",
+          "required": "true"
+        },
+        "parameters": {
+          "description": "Required parameters for adding a resource of this type.",
+          "type": "object",
+          "required": "true",
+          "additionalProperties": {
+            "$ref": "#/definitions/TypedDefaultValue"
+          }
+        },
+        "incomingData": {
+          "description": "Incoming data that can be recieved from a resource of this type.",
+          "type": "object",
+          "required": "true",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/IncomingDataInfo"
+            }
+          }
+        }
+      }
+    },
+    "ResourceTypeMap": {
+      "description": "Represents the description of all the available resource types",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "resourceTypes": {
+          "description": "Collection of all available resource type descriptions supported by this processor",
+          "type": "array",
+          "required": "true",
+          "items": {
+            "$ref": "#/definitions/ResourceTypeInfo"
+          }
+        }
+      }
+    },
+    "ResourceInfo": {
+      "description": "Represents the information required to add a new resource to the processor",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "id": {
+          "description": "Id of the resource that can be used to refer to it on the server.",
+          "type": "integer",
+          "format": "int32",
+          "required": "true"
+        },
+        "type": {
+          "description": "Resource type name",
+          "type": "string",
+          "required": "true"
+        },
+        "parameters": {
+          "description": "Resource parameters",
+          "type": "object",
+          "required": "true",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Status": {
+      "description": "Represents the current status of the processor. Used for synchronizing data between the processor and the server.",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "dataVersion": {
+          "description": "The data version of the processor. Needs to start from 1 and has to be incremented every time there's a change in the returned data from getResourceTypeMap or getFunctionMap",
+          "type": "integer",
+          "format": "int32",
+          "required": "true"
+        },
+        "protocolVersion": {
+          "description": "The protocol version of the processor.",
+          "type": "integer",
+          "format": "int32",
+          "required": "true"
+        },
+        "managedResourceIds": {
+          "description": "The resource ids currently managed by this processor, for a specific server.",
+          "type": "array",
+          "required": "true",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "ServerInfo": {
+      "description": "Represents the information used to assign/unassign a server",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "token": {
+          "description": "JWT bearer token used for communication between the processor and the assigned server in both directions.",
+          "type": "string",
+          "required": "true"
+        }
+      }
+    },
+    "ChangeToken": {
+      "description": "Represents the information required for a token change on an assigned server",
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "oldToken": {
+          "description": "The old token that needs to be changed",
+          "type": "string",
+          "required": "true"
+        },
+        "newToken": {
+          "description": "The new token that will replace the old one",
+          "type": "string",
+          "required": "true"
+        }
+      }
+    }
+  }
+}
