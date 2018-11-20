@@ -1,63 +1,53 @@
 package hu.invitech.insight.processor.example;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.invitech.insight.processor.sdk.core.api.VersionInterface;
-import hu.invitech.insight.processor.sdk.v1.api.FunctionInterface;
-import hu.invitech.insight.processor.sdk.v1.api.ResourceInterface;
-import hu.invitech.insight.processor.sdk.v1.api.ServerInterface;
-import hu.invitech.insight.processor.sdk.v1.data.JsonDataType;
+import hu.invitech.insight.processor.example.api.*;
+import hu.invitech.insight.processor.example.data.Resource;
+import hu.invitech.insight.processor.example.data.Server;
 import hu.invitech.insight.processor.sdk.v1.function.FunctionCall;
-import hu.invitech.insight.processor.sdk.v1.function.FunctionMap;
-import hu.invitech.insight.processor.sdk.v1.function.FunctionReturn;
-import hu.invitech.insight.processor.sdk.v1.resource.IncomingDataInfo;
 import hu.invitech.insight.processor.sdk.v1.resource.ResourceInfo;
-import hu.invitech.insight.processor.sdk.v1.resource.ResourceTypeInfo;
-import hu.invitech.insight.processor.sdk.v1.resource.ResourceTypeMap;
 import hu.invitech.insight.processor.sdk.v1.server.ChangeToken;
 import hu.invitech.insight.processor.sdk.v1.server.ServerInfo;
 import hu.invitech.insight.processor.sdk.v1.server.Status;
 import hu.invitech.insight.processor.sdk.v1.util.ApiConstants;
 import hu.invitech.insight.processor.sdk.v1.util.ProcessorUtils;
+import io.jsondb.JsonDBTemplate;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 import spark.Request;
 import spark.Response;
 
-import java.util.*;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static hu.invitech.insight.processor.sdk.core.util.CoreApiConstants.CORE_PATH;
-import static hu.invitech.insight.processor.sdk.v1.resource.SensorTypes.*;
 import static hu.invitech.insight.processor.sdk.v1.util.ApiConstants.*;
 import static spark.Spark.*;
 
-public class ManualInputExample implements VersionInterface, ResourceInterface, FunctionInterface, ServerInterface {
+public class ManualInputExample {
     private static final Logger log = Logger.getLogger(ManualInputExample.class.getName());
 
-    private static final int dataVersion = 1;
-    private static final int protocolVersion = 1;
+    public static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final JsonDBTemplate jsonDb = new JsonDBTemplate("./", "hu.invitech.insight.processor.example.data");
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final Map<String, Server> serverMap = new LinkedHashMap<>();
-    private final ResourceTypeMap resourceTypeMap = new ResourceTypeMap();
-
-    public ManualInputExample() {
-        ResourceTypeInfo resourceTypeInfo = new ResourceTypeInfo("MANUAL_INPUT");
-
-        List<IncomingDataInfo> incomingDataInfoList = new LinkedList<>();
-        incomingDataInfoList.add(new IncomingDataInfo("temp", JsonDataType.DOUBLE, TEMPERATURE, null, null));
-        incomingDataInfoList.add(new IncomingDataInfo("humidity", JsonDataType.DOUBLE, HUMIDITY, null, null));
-        incomingDataInfoList.add(new IncomingDataInfo("pressure", JsonDataType.DOUBLE, PRESSURE, null, null));
-        incomingDataInfoList.add(new IncomingDataInfo("battery", JsonDataType.DOUBLE, BATTERY_PERCENTAGE, null, null));
-
-        resourceTypeInfo.getIncomingData().put("MANUAL_DATA", incomingDataInfoList);
-
-        resourceTypeMap.getResourceTypes().add(resourceTypeInfo);
-    }
+    public static final int dataVersion = 1;
+    public static final int protocolVersion = 1;
 
     public static void main(String[] args) {
         ManualInputExample app = new ManualInputExample();
+
+        if (!jsonDb.collectionExists(Server.class)) {
+            jsonDb.createCollection(Server.class);
+        }
+        if (!jsonDb.collectionExists(Resource.class)) {
+            jsonDb.createCollection(Resource.class);
+        }
 
         port(80);
 
@@ -68,46 +58,63 @@ public class ManualInputExample implements VersionInterface, ResourceInterface, 
             return null;
         });
 
-        path(CORE_PATH, () -> {
-            get("/version", (request, response) -> protocolVersion);
-        });
+        path(CORE_PATH, () -> get("/version", (request, response) -> new VersionApi().getVersion()));
 
         path("/v1", () -> {
+            before(FUNCTION_PATH, app::authorize);
+            before(FUNCTION_PATH + "/*", app::authorize);
+            before(RESOURCE_PATH, app::authorize);
+            before(RESOURCE_PATH + "/*", app::authorize);
+
             path(FUNCTION_PATH, () -> {
-                before(app::authorize);
+                get("", (request, response) -> new FunctionApi(request.session().attribute("server")).getFunctionMap(), objectMapper::writeValueAsString);
 
-                get("/", (request, response) -> app.getFunctionMap(), app::convertToJson);
-
-                post("/", (request, response) -> app.callFunction(app.objectMapper.readValue(request.body(), FunctionCall.class)), app::convertToJson);
+                post(
+                    "",
+                    (request, response) -> new FunctionApi(request.session().attribute("server")).callFunction(objectMapper.readValue(request.body() != null &&
+                        !request.body().isEmpty() ? request.body() : "{}", FunctionCall.class)),
+                    objectMapper::writeValueAsString
+                );
             });
 
             path(RESOURCE_PATH, () -> {
-                before(app::authorize);
+                get("", (request, response) -> new ResourceApi(request.session().attribute("server")).getResourceTypeMap(), objectMapper::writeValueAsString);
 
-                get("/", (request, response) -> app.resourceTypeMap, app::convertToJson);
-
-                post("/", (request, response) -> {
-                    app.addResource(app.objectMapper.readValue(request.body(), ResourceInfo.class));
-                    return null;
+                post("", (request, response) -> {
+                    new ResourceApi(request.session().attribute("server")).addResource(objectMapper.readValue(request.body() != null && !request.body().isEmpty() ?
+                        request.body() :
+                        "{}", ResourceInfo.class));
+                    response.status(204);
+                    return "";
                 });
 
                 delete("/:id", (request, response) -> {
-                    app.removeResource(Integer.parseInt(request.params(":id")));
-                    return null;
+                    new ResourceApi(request.session().attribute("server")).removeResource(Integer.parseInt(request.params(":id")));
+                    response.status(204);
+                    return "";
                 });
             });
 
             path(SERVER_PATH, () -> {
-                post(ApiConstants.ASSIGN_SERVER_PATH, (request, response) -> app.assignServer(app.objectMapper.readValue(request.body(), ServerInfo.class)), app::convertToJson);
+                post(
+                    ApiConstants.ASSIGN_SERVER_PATH,
+                    (request, response) -> new ServerApi().assignServer(objectMapper.readValue(
+                        request.body() != null && !request.body().isEmpty() ? request.body() : "{}",
+                        ServerInfo.class
+                    )),
+                    objectMapper::writeValueAsString
+                );
 
                 post(ApiConstants.UNASSIGN_SERVER_PATH, (request, response) -> {
-                    app.unassignServer(app.objectMapper.readValue(request.body(), ServerInfo.class));
-                    return null;
+                    new ServerApi().unassignServer(objectMapper.readValue(request.body() != null && !request.body().isEmpty() ? request.body() : "{}", ServerInfo.class));
+                    response.status(204);
+                    return "";
                 });
 
                 post(ApiConstants.CHANGE_TOKEN_PATH, (request, response) -> {
-                    app.changeToken(app.objectMapper.readValue(request.body(), ChangeToken.class));
-                    return null;
+                    new ServerApi().changeToken(objectMapper.readValue(request.body() != null && !request.body().isEmpty() ? request.body() : "{}", ChangeToken.class));
+                    response.status(204);
+                    return "";
                 });
             });
         });
@@ -119,47 +126,9 @@ public class ManualInputExample implements VersionInterface, ResourceInterface, 
         app.onStart();
     }
 
-    private void onStart() {
-        for (Server server : serverMap.values()) {
-            try {
-                /*Response response = ClientBuilder.newClient()
-                    .target(server.getBaseUrl())
-                    .path("/v" + protocolVersion)
-                    .request(MediaType.APPLICATION_JSON)
-                    .header(HttpHeaders.AUTHORIZATION, ApiConstants.AUTHENTICATION_SCHEME + " " + server.getToken())
-                    .buildPost(Entity.json(new Status(
-                        dataVersion,
-                        protocolVersion,
-                        new LinkedList<>()
-                    )))
-                    .invoke();
-                if (response.getStatus() == Response.Status.FORBIDDEN.getStatusCode()) {
-                    serverMap.remove(server.getToken());
-                }*/
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void onStop() {
-        for (Server server : serverMap.values()) {
-            try {
-                    /*ClientBuilder.newClient()
-                        .target(server.getBaseUrl())
-                        .path("/v" + protocolVersion)
-                        .request(MediaType.APPLICATION_JSON)
-                        .header(HttpHeaders.AUTHORIZATION, ApiConstants.AUTHENTICATION_SCHEME + " " + server.getToken())
-                        .buildDelete()
-                        .invoke();*/
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private String convertToJson(Object model) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(model);
+    public static okhttp3.Response addAuthorizationHeader(Interceptor.Chain chain, String token) throws IOException {
+        okhttp3.Request request = chain.request().newBuilder().addHeader("Authorization", ApiConstants.AUTHENTICATION_SCHEME + " " + token).build();
+        return chain.proceed(request);
     }
 
     private void authorize(final Request request, final Response response) {
@@ -177,10 +146,12 @@ public class ManualInputExample implements VersionInterface, ResourceInterface, 
             String baseUrl = claims.getIssuer();
             Integer processorId = claims.get("processorId", Integer.class);
 
-            Server server = serverMap.get(token);
-            if (server == null || !server.getBaseUrl().equals(baseUrl) || !server.getProcessorId().equals(processorId)) {
-                halt(403, "Forbidden: server parameter mismatch.");
+            String jxQuery = String.format("/.[token='%s']", token);
+            List<Server> serverList = jsonDb.find(jxQuery, Server.class);
+            if (serverList == null || serverList.isEmpty() || !serverList.get(0).getBaseUrl().equals(baseUrl) || !serverList.get(0).getProcessorId().equals(processorId)) {
+                halt(403);
             }
+            Server server = serverList.get(0);
 
             request.session(true).attribute("server", server);
         } catch (JwtException e) {
@@ -191,171 +162,47 @@ public class ManualInputExample implements VersionInterface, ResourceInterface, 
 
     private void haltWithUnauthorized(final Response response) {
         response.header("WWW-Authenticate", ApiConstants.AUTHENTICATION_SCHEME);
-        halt("401");
+        halt(401);
     }
 
-    @Override
-    public Integer getVersion() {
-        return protocolVersion;
-    }
+    private void onStart() {
+        for (Server server : jsonDb.findAll(Server.class)) {
+            try {
+                Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(server.getBaseUrl().endsWith("/") ? server.getBaseUrl() : server.getBaseUrl() + "/")
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .client(new OkHttpClient().newBuilder()
+                        .addInterceptor((chain) -> ManualInputExample.addAuthorizationHeader(chain, server.getToken()))
+                        .build())
+                    .build();
 
-    @Override
-    public ResourceTypeMap getResourceTypeMap() {
-        return resourceTypeMap;
-    }
-
-    @Override
-    public void addResource(final ResourceInfo resource) {
-    }
-
-    @Override
-    public void removeResource(final Integer id) {
-    }
-
-    @Override
-    public FunctionMap getFunctionMap() {
-        return new FunctionMap();
-    }
-
-    @Override
-    public FunctionReturn callFunction(final FunctionCall functionCall) {
-        halt(400);
-        return null;
-    }
-
-    @Override
-    public Status assignServer(final ServerInfo serverInfo) {
-        try {
-            Claims claims = ProcessorUtils.validateToken(serverInfo.getToken());
-            String baseUrl = claims.getIssuer();
-            Integer processorId = (Integer) claims.get("processorId");
-
-            Server server = serverMap.get(serverInfo.getToken());
-            if (server == null) {
-                server = new Server(serverInfo.getToken(), baseUrl, processorId);
-                serverMap.put(server.getToken(), server);
-            } else {
-                if (!server.getBaseUrl().equals(baseUrl) || !server.getProcessorId().equals(processorId)) {
-                    halt(403, "Forbidden: server parameter mismatch.");
+                PlatformApi platform = retrofit.create(PlatformApi.class);
+                retrofit2.Response<Void> response = platform.start(new Status(dataVersion, protocolVersion, new LinkedList<>())).execute();
+                if (response.code() == 403) {
+                    jsonDb.remove(server, Server.class);
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            return new Status(
-                dataVersion,
-                protocolVersion,
-                new LinkedList<>()
-            );
-        } catch (JwtException | IllegalArgumentException e) {
-            halt(403, "Forbidden: invalid token.");
-        }
-
-        return null;
-    }
-
-    @Override
-    public void unassignServer(final ServerInfo serverInfo) {
-        try {
-            Claims claims = ProcessorUtils.validateToken(serverInfo.getToken());
-            String baseUrl = claims.getIssuer();
-            Integer processorId = (Integer) claims.get("processorId");
-
-            Server server = serverMap.get(serverInfo.getToken());
-            if (server != null) {
-                if (!server.getBaseUrl().equals(baseUrl) || !server.getProcessorId().equals(processorId)) {
-                    halt(403, "Forbidden: server parameter mismatch.");
-                }
-
-                serverMap.remove(server.getToken());
-            }
-        } catch (JwtException | IllegalArgumentException e) {
-            halt(403, "Forbidden: invalid token.");
         }
     }
 
-    @Override
-    public void changeToken(final ChangeToken changeToken) {
-        if (changeToken == null ||
-            changeToken.getOldToken() == null || changeToken.getOldToken().isEmpty() ||
-            changeToken.getNewToken() == null || changeToken.getNewToken().isEmpty() ||
-            changeToken.getOldToken().equals(changeToken.getNewToken())
-        ) {
-            halt(400);
-        }
+    private void onStop() {
+        for (Server server : jsonDb.findAll(Server.class)) {
+            try {
+                Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(server.getBaseUrl().endsWith("/") ? server.getBaseUrl() : server.getBaseUrl() + "/")
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .client(new OkHttpClient().newBuilder()
+                        .addInterceptor((chain) -> ManualInputExample.addAuthorizationHeader(chain, server.getToken()))
+                        .build())
+                    .build();
 
-        Server server = serverMap.get(changeToken.getOldToken());
-        if (server == null) {
-            halt(403, "Forbidden: server parameter mismatch.");
-        }
-
-        try {
-            Claims claims = ProcessorUtils.validateToken(changeToken.getNewToken());
-            String baseUrl = claims.getIssuer();
-            Integer processorId = (Integer) claims.get("processorId");
-
-            if (!server.getProcessorId().equals(processorId)) {
-                halt(403, "Forbidden: server parameter mismatch.");
+                PlatformApi platform = retrofit.create(PlatformApi.class);
+                platform.stop();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            server.setBaseUrl(baseUrl);
-            server.setToken(changeToken.getNewToken());
-            serverMap.put(server.getToken(), server);
-        } catch (JwtException | IllegalArgumentException e) {
-            halt(403, "Forbidden: invalid token.");
-        }
-    }
-
-    public static class Server {
-        private String token;
-        private String baseUrl;
-        private Integer processorId;
-
-        Server(final String token, final String baseUrl, final Integer processorId) {
-            this.token = token;
-            this.baseUrl = baseUrl;
-            this.processorId = processorId;
-        }
-
-        String getToken() {
-            return token;
-        }
-
-        void setToken(final String token) {
-            this.token = token;
-        }
-
-        String getBaseUrl() {
-            return baseUrl;
-        }
-
-        void setBaseUrl(final String baseUrl) {
-            this.baseUrl = baseUrl;
-        }
-
-        Integer getProcessorId() {
-            return processorId;
-        }
-
-        void setProcessorId(final Integer processorId) {
-            this.processorId = processorId;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(token, baseUrl, processorId);
-        }
-
-        @Override
-        public boolean equals(final Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            final Server server = (Server) o;
-            return Objects.equals(token, server.token) &&
-                Objects.equals(baseUrl, server.baseUrl) &&
-                Objects.equals(processorId, server.processorId);
         }
     }
 }
