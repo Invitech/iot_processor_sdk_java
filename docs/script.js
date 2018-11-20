@@ -23,7 +23,7 @@ function updateTabs(type) {
         }
         else {
             sNode.className = tableTab;
-            spanNode.innerHTML = '<a href="javascript:show(' + value + ');">' + tabs[value][1] + '</a>';
+            spanNode.innerHTML = '<a href="javascript:show(' + value + ');">' + tabs[value][1] + "</a>";
         }
     }
 }
