@@ -27,12 +27,12 @@ public interface RemoteInterface {
      * Accessible at the following path: POST /v1
      * </p>
      *
-     * <table>
+     * <table class="invitechTable">
      * <caption>HTTP status codes</caption>
      * <tr>
-     * <td>Code</td>
-     * <td>Text</td>
-     * <td>Description</td>
+     * <th>Code</th>
+     * <th>Text</th>
+     * <th>Description</th>
      * </tr>
      * <tr>
      * <td>403</td>
@@ -63,12 +63,12 @@ public interface RemoteInterface {
      * Accessible at the following path: POST /data/v1
      * </p>
      *
-     * <table>
+     * <table class="invitechTable">
      * <caption>HTTP status codes</caption>
      * <tr>
-     * <td>Code</td>
-     * <td>Text</td>
-     * <td>Description</td>
+     * <th>Code</th>
+     * <th>Text</th>
+     * <th>Description</th>
      * </tr>
      * <tr>
      * <td>403</td>
@@ -109,12 +109,12 @@ public interface RemoteInterface {
      * Accessible at the following path: DELETE /v1
      * </p>
      *
-     * <table>
+     * <table class="invitechTable">
      * <caption>HTTP status codes</caption>
      * <tr>
-     * <td>Code</td>
-     * <td>Text</td>
-     * <td>Description</td>
+     * <th>Code</th>
+     * <th>Text</th>
+     * <th>Description</th>
      * </tr>
      * <tr>
      * <td>403</td>

@@ -25,12 +25,12 @@ public interface ServerInterface {
      * Should be accessible at the following path: POST {@value hu.invitech.insight.processor.sdk.v1.util.ApiConstants#ASSIGN_SERVER_PATH}
      * </p>
      *
-     * <table>
+     * <table class="invitechTable">
      * <caption>HTTP status codes</caption>
      * <tr>
-     * <td>Code</td>
-     * <td>Text</td>
-     * <td>Description</td>
+     * <th>Code</th>
+     * <th>Text</th>
+     * <th>Description</th>
      * </tr>
      * <tr>
      * <td>403</td>
@@ -59,12 +59,12 @@ public interface ServerInterface {
      * Should be accessible at the following path: POST {@value hu.invitech.insight.processor.sdk.v1.util.ApiConstants#UNASSIGN_SERVER_PATH}
      * </p>
      *
-     * <table>
+     * <table class="invitechTable">
      * <caption>HTTP status codes</caption>
      * <tr>
-     * <td>Code</td>
-     * <td>Text</td>
-     * <td>Description</td>
+     * <th>Code</th>
+     * <th>Text</th>
+     * <th>Description</th>
      * </tr>
      * <tr>
      * <td>403</td>
@@ -91,12 +91,12 @@ public interface ServerInterface {
      * Should be accessible at the following path: POST {@value hu.invitech.insight.processor.sdk.v1.util.ApiConstants#CHANGE_TOKEN_PATH}
      * </p>
      *
-     * <table>
+     * <table class="invitechTable">
      * <caption>HTTP status codes</caption>
      * <tr>
-     * <td>Code</td>
-     * <td>Text</td>
-     * <td>Description</td>
+     * <th>Code</th>
+     * <th>Text</th>
+     * <th>Description</th>
      * </tr>
      * <tr>
      * <td>403</td>

@@ -28,12 +28,12 @@ public interface ResourceInterface {
      * Should be accessible at the following path: GET /
      * </p>
      *
-     * <table>
+     * <table class="invitechTable">
      * <caption>HTTP status codes</caption>
      * <tr>
-     * <td>Code</td>
-     * <td>Text</td>
-     * <td>Description</td>
+     * <th>Code</th>
+     * <th>Text</th>
+     * <th>Description</th>
      * </tr>
      * <tr>
      * <td>403</td>
@@ -64,12 +64,12 @@ public interface ResourceInterface {
      * Should be accessible at the following path: POST /
      * </p>
      *
-     * <table>
+     * <table class="invitechTable">
      * <caption>HTTP status codes</caption>
      * <tr>
-     * <td>Code</td>
-     * <td>Text</td>
-     * <td>Description</td>
+     * <th>Code</th>
+     * <th>Text</th>
+     * <th>Description</th>
      * </tr>
      * <tr>
      * <td>403</td>
@@ -115,12 +115,12 @@ public interface ResourceInterface {
      * Should be accessible at the following path: DELETE /
      * </p>
      *
-     * <table>
+     * <table class="invitechTable">
      * <caption>HTTP status codes</caption>
      * <tr>
-     * <td>Code</td>
-     * <td>Text</td>
-     * <td>Description</td>
+     * <th>Code</th>
+     * <th>Text</th>
+     * <th>Description</th>
      * </tr>
      * <tr>
      * <td>403</td>

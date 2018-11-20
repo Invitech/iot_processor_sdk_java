@@ -172,25 +172,25 @@ var activeTableTab = "activeTableTab";
  <p>
  Should be accessible at the following path: GET /
  </p>
-    <table style="border: 1px">
-        <caption>HTTP status codes</caption>
-        <tr>
-            <td>Code</td>
-            <td>Text</td>
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td>403</td>
-            <td>Forbidden</td>
-            <td>The token is not assigned or it was previously assigned to a different server than the caller</td>
-        </tr>
-        <tr>
-            <td>200</td>
-            <td>OK</td>
-            <td>OK</td>
-        </tr>
-    </table>
-</div>
+
+ <table class="invitechTable">
+ <caption>HTTP status codes</caption>
+ <tr>
+ <th>Code</th>
+ <th>Text</th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td>403</td>
+ <td>Forbidden</td>
+ <td>The token is not assigned or it was previously assigned to a different server than the caller</td>
+ </tr>
+ <tr>
+ <td>200</td>
+ <td>OK</td>
+ <td>OK</td>
+ </tr>
+ </table></div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the description of available functions mapped by resource type (see <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/function/FunctionMap.html" title="class in hu.invitech.insight.processor.sdk.v1.function"><code>FunctionMap</code></a>)</dd>
@@ -215,44 +215,40 @@ var activeTableTab = "activeTableTab";
  <p>
  Should be accessible at the following path: POST /
  </p>
-    <table>
-        <caption>HTTP status codes</caption>
-        <tr>
-            <td>Code</td>
-            <td>Text</td>
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td>403</td>
-            <td>Forbidden</td>
-            <td>The token is not assigned or it was previously assigned to a different server than the caller</td>
-        </tr>
-        <tr>
-            <td>400</td>
-            <td>Bad Request</td>
-            <td>A function with the name in <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/function/FunctionCall.html#functionName"><code>FunctionCall.functionName</code></a>
-                doesn't exist
-            </td>
-        </tr>
-        <tr>
-            <td>404</td>
-            <td>Not Found</td>
-            <td>A resource with the id in
-                <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/function/FunctionCall.html#resourceId"><code>FunctionCall.resourceId</code></a> doesn't exist
-            </td>
-        </tr>
-        <tr>
-            <td>500</td>
-            <td>Internal Server Error</td>
-            <td>The function call encountered an unrecoverable error</td>
-        </tr>
-        <tr>
-            <td>200</td>
-            <td>OK</td>
-            <td>OK</td>
-        </tr>
-    </table>
-</div>
+
+ <table class="invitechTable">
+ <caption>HTTP status codes</caption>
+ <tr>
+ <th>Code</th>
+ <th>Text</th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td>403</td>
+ <td>Forbidden</td>
+ <td>The token is not assigned or it was previously assigned to a different server than the caller</td>
+ </tr>
+ <tr>
+ <td>400</td>
+ <td>Bad Request</td>
+ <td>A function with the name in <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/function/FunctionCall.html#functionName"><code>FunctionCall.functionName</code></a> doesn't exist</td>
+ </tr>
+ <tr>
+ <td>404</td>
+ <td>Not Found</td>
+ <td>A resource with the id in  <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/function/FunctionCall.html#resourceId"><code>FunctionCall.resourceId</code></a> doesn't exist</td>
+ </tr>
+ <tr>
+ <td>500</td>
+ <td>Internal Server Error</td>
+ <td>The function call encountered an unrecoverable error</td>
+ </tr>
+ <tr>
+ <td>200</td>
+ <td>OK</td>
+ <td>OK</td>
+ </tr>
+ </table></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>functionCall</code> - the function call description (see <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/function/FunctionCall.html" title="class in hu.invitech.insight.processor.sdk.v1.function"><code>FunctionCall</code></a>)</dd>
