@@ -97,7 +97,7 @@
                     <show>private</show>
                     <reportOutputDirectory>${project.basedir}</reportOutputDirectory>
                     <destDir>docs</destDir>
-                    <stylesheetfile></stylesheetfile>
+                    <stylesheetfile>src/main/resources/stylesheet.css</stylesheetfile>
                 </configuration>
             </plugin>
         </plugins>
