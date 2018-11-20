@@ -136,13 +136,13 @@ var activeTableTab = "activeTableTab";
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-    <td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/api/ServerInterface.html#changeToken-hu.invitech.insight.processor.sdk.v1.server.ChangeToken-">changeToken</a></span>(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/ChangeToken.html" title="class in hu.invitech.insight.processor.sdk.v1.server">ChangeToken</a>&nbsp;changeToken)</code>
 <div class="block">Changes the token of an assigned server.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-    <td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/api/ServerInterface.html#unassignServer-hu.invitech.insight.processor.sdk.v1.server.ServerInfo-">unassignServer</a></span>(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/ServerInfo.html" title="class in hu.invitech.insight.processor.sdk.v1.server">ServerInfo</a>&nbsp;serverInfo)</code>
 <div class="block">Unassigns a server from the processor with the given token.</div>
 </td>
@@ -174,25 +174,25 @@ var activeTableTab = "activeTableTab";
  <p>
  Should be accessible at the following path: POST <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/util/ApiConstants.html#ASSIGN_SERVER_PATH">"/assign"</a>
  </p>
-    <table>
-        <caption>HTTP status codes</caption>
-        <tr>
-            <td>Code</td>
-            <td>Text</td>
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td>403</td>
-            <td>Forbidden</td>
-            <td>The token is empty or invalid</td>
-        </tr>
-        <tr>
-            <td>200</td>
-            <td>OK</td>
-            <td>OK</td>
-        </tr>
-    </table>
-</div>
+
+ <table class="invitechTable">
+ <caption>HTTP status codes</caption>
+ <tr>
+ <th>Code</th>
+ <th>Text</th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td>403</td>
+ <td>Forbidden</td>
+ <td>The token is empty or invalid</td>
+ </tr>
+ <tr>
+ <td>200</td>
+ <td>OK</td>
+ <td>OK</td>
+ </tr>
+ </table></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>serverInfo</code> - the information about the server to be assigned (see <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/ServerInfo.html" title="class in hu.invitech.insight.processor.sdk.v1.server"><code>ServerInfo</code></a>)</dd>
@@ -209,32 +209,31 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>unassignServer</h4>
-    <pre>void&nbsp;unassignServer(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/ServerInfo.html"
-                                     title="class in hu.invitech.insight.processor.sdk.v1.server">ServerInfo</a>&nbsp;serverInfo)</pre>
+<pre>void&nbsp;unassignServer(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/ServerInfo.html" title="class in hu.invitech.insight.processor.sdk.v1.server">ServerInfo</a>&nbsp;serverInfo)</pre>
 <div class="block">Unassigns a server from the processor with the given token.
 
  <p>
  Should be accessible at the following path: POST <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/util/ApiConstants.html#UNASSIGN_SERVER_PATH">"/unassign"</a>
  </p>
-    <table>
-        <caption>HTTP status codes</caption>
-        <tr>
-            <td>Code</td>
-            <td>Text</td>
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td>403</td>
-            <td>Forbidden</td>
-            <td>The token is empty, invalid, or assigned to a different server than the caller</td>
-        </tr>
-        <tr>
-            <td>204</td>
-            <td>No Content</td>
-            <td>OK</td>
-        </tr>
-    </table>
-</div>
+
+ <table class="invitechTable">
+ <caption>HTTP status codes</caption>
+ <tr>
+ <th>Code</th>
+ <th>Text</th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td>403</td>
+ <td>Forbidden</td>
+ <td>The token is empty, invalid, or assigned to a different server than the caller</td>
+ </tr>
+ <tr>
+ <td>204</td>
+ <td>No Content</td>
+ <td>OK</td>
+ </tr>
+ </table></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>serverInfo</code> - the information about the server to be unassigned (see <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/ServerInfo.html" title="class in hu.invitech.insight.processor.sdk.v1.server"><code>ServerInfo</code></a>)</dd>
@@ -249,37 +248,36 @@ var activeTableTab = "activeTableTab";
 <ul class="blockListLast">
 <li class="blockList">
 <h4>changeToken</h4>
-    <pre>void&nbsp;changeToken(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/ChangeToken.html"
-                                  title="class in hu.invitech.insight.processor.sdk.v1.server">ChangeToken</a>&nbsp;changeToken)</pre>
+<pre>void&nbsp;changeToken(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/ChangeToken.html" title="class in hu.invitech.insight.processor.sdk.v1.server">ChangeToken</a>&nbsp;changeToken)</pre>
 <div class="block">Changes the token of an assigned server.
 
  <p>
  Should be accessible at the following path: POST <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/util/ApiConstants.html#CHANGE_TOKEN_PATH">"/token"</a>
  </p>
-    <table>
-        <caption>HTTP status codes</caption>
-        <tr>
-            <td>Code</td>
-            <td>Text</td>
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td>403</td>
-            <td>Forbidden</td>
-            <td>The new token is empty, invalid, unassigned, or assigned to a different server than the caller</td>
-        </tr>
-        <tr>
-            <td>400</td>
-            <td>Bad Request</td>
-            <td>The old or the new token is missing or they are both the same</td>
-        </tr>
-        <tr>
-            <td>204</td>
-            <td>No Content</td>
-            <td>OK</td>
-        </tr>
-    </table>
-</div>
+
+ <table class="invitechTable">
+ <caption>HTTP status codes</caption>
+ <tr>
+ <th>Code</th>
+ <th>Text</th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td>403</td>
+ <td>Forbidden</td>
+ <td>The new token is empty, invalid, unassigned, or assigned to a different server than the caller</td>
+ </tr>
+ <tr>
+ <td>400</td>
+ <td>Bad Request</td>
+ <td>The old or the new token is missing or they are both the same</td>
+ </tr>
+ <tr>
+ <td>204</td>
+ <td>No Content</td>
+ <td>OK</td>
+ </tr>
+ </table></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>changeToken</code> - the information required for the token change (see <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/ChangeToken.html" title="class in hu.invitech.insight.processor.sdk.v1.server"><code>ChangeToken</code></a>)</dd>

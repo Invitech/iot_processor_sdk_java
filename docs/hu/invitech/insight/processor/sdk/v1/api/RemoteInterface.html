@@ -128,19 +128,19 @@ var activeTableTab = "activeTableTab";
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-    <td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/api/RemoteInterface.html#sendData-hu.invitech.insight.processor.sdk.v1.data.IncomingData-">sendData</a></span>(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/data/IncomingData.html" title="class in hu.invitech.insight.processor.sdk.v1.data">IncomingData</a>&nbsp;data)</code>
 <div class="block">Sends received incoming data from a resource to the server.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-    <td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/api/RemoteInterface.html#start-hu.invitech.insight.processor.sdk.v1.server.Status-">start</a></span>(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/Status.html" title="class in hu.invitech.insight.processor.sdk.v1.server">Status</a>&nbsp;status)</code>
 <div class="block">Tells the server that this processor has started, and starts a data sync if needed.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-    <td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/api/RemoteInterface.html#stop--">stop</a></span>()</code>
 <div class="block">Tells the server that this processor has stopped.</div>
 </td>
@@ -166,8 +166,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>start</h4>
-    <pre>void&nbsp;start(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/Status.html"
-                            title="class in hu.invitech.insight.processor.sdk.v1.server">Status</a>&nbsp;status)</pre>
+<pre>void&nbsp;start(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/Status.html" title="class in hu.invitech.insight.processor.sdk.v1.server">Status</a>&nbsp;status)</pre>
 <div class="block">Tells the server that this processor has started, and starts a data sync if needed.
 
  <p>
@@ -177,25 +176,25 @@ var activeTableTab = "activeTableTab";
  <p>
  Accessible at the following path: POST /v1
  </p>
-    <table>
-        <caption>HTTP status codes</caption>
-        <tr>
-            <td>Code</td>
-            <td>Text</td>
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td>403</td>
-            <td>Forbidden</td>
-            <td>The token is not assigned or it is assigned to a different processor than the caller</td>
-        </tr>
-        <tr>
-            <td>204</td>
-            <td>No Content</td>
-            <td>OK</td>
-        </tr>
-    </table>
-</div>
+
+ <table class="invitechTable">
+ <caption>HTTP status codes</caption>
+ <tr>
+ <th>Code</th>
+ <th>Text</th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td>403</td>
+ <td>Forbidden</td>
+ <td>The token is not assigned or it is assigned to a different processor than the caller</td>
+ </tr>
+ <tr>
+ <td>204</td>
+ <td>No Content</td>
+ <td>OK</td>
+ </tr>
+ </table></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>status</code> - the current status of this processor in relation to the server on which this method is called (see <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/server/Status.html" title="class in hu.invitech.insight.processor.sdk.v1.server"><code>Status</code></a>)</dd>
@@ -210,7 +209,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>sendData</h4>
-    <pre>void&nbsp;sendData(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/data/IncomingData.html" title="class in hu.invitech.insight.processor.sdk.v1.data">IncomingData</a>&nbsp;data)</pre>
+<pre>void&nbsp;sendData(<a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/data/IncomingData.html" title="class in hu.invitech.insight.processor.sdk.v1.data">IncomingData</a>&nbsp;data)</pre>
 <div class="block">Sends received incoming data from a resource to the server.
 
  <p>
@@ -220,39 +219,35 @@ var activeTableTab = "activeTableTab";
  <p>
  Accessible at the following path: POST /data/v1
  </p>
-    <table>
-        <caption>HTTP status codes</caption>
-        <tr>
-            <td>Code</td>
-            <td>Text</td>
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td>403</td>
-            <td>Forbidden</td>
-            <td>The token is not assigned or it is assigned to a different processor than the caller</td>
-        </tr>
-        <tr>
-            <td>400</td>
-            <td>Bad Request</td>
-            <td>An incoming data type with the name in
-                <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/data/IncomingData.html#type"><code>IncomingData.type</code></a> doesn't exist
-            </td>
-        </tr>
-        <tr>
-            <td>404</td>
-            <td>Not Found</td>
-            <td>A resource with the id in <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/data/IncomingData.html#resourceId"><code>IncomingData.resourceId</code></a>
-                doesn't exist
-            </td>
-        </tr>
-        <tr>
-            <td>204</td>
-            <td>No Content</td>
-            <td>OK</td>
-        </tr>
-    </table>
-</div>
+
+ <table class="invitechTable">
+ <caption>HTTP status codes</caption>
+ <tr>
+ <th>Code</th>
+ <th>Text</th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td>403</td>
+ <td>Forbidden</td>
+ <td>The token is not assigned or it is assigned to a different processor than the caller</td>
+ </tr>
+ <tr>
+ <td>400</td>
+ <td>Bad Request</td>
+ <td>An incoming data type with the name in <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/data/IncomingData.html#type"><code>IncomingData.type</code></a> doesn't exist</td>
+ </tr>
+ <tr>
+ <td>404</td>
+ <td>Not Found</td>
+ <td>A resource with the id in <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/data/IncomingData.html#resourceId"><code>IncomingData.resourceId</code></a> doesn't exist</td>
+ </tr>
+ <tr>
+ <td>204</td>
+ <td>No Content</td>
+ <td>OK</td>
+ </tr>
+ </table></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>data</code> - the data received from a resource (see <a href="../../../../../../../hu/invitech/insight/processor/sdk/v1/data/IncomingData.html" title="class in hu.invitech.insight.processor.sdk.v1.data"><code>IncomingData</code></a>)</dd>
@@ -267,7 +262,7 @@ var activeTableTab = "activeTableTab";
 <ul class="blockListLast">
 <li class="blockList">
 <h4>stop</h4>
-    <pre>void&nbsp;stop()</pre>
+<pre>void&nbsp;stop()</pre>
 <div class="block">Tells the server that this processor has stopped.
 
  <p>
@@ -277,26 +272,27 @@ var activeTableTab = "activeTableTab";
  <p>
  Accessible at the following path: DELETE /v1
  </p>
-    <table>
-        <caption>HTTP status codes</caption>
-        <tr>
-            <td>Code</td>
-            <td>Text</td>
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td>403</td>
-            <td>Forbidden</td>
-            <td>The token is not assigned or it is assigned to a different processor than the caller</td>
-        </tr>
-        <tr>
-            <td>204</td>
-            <td>No Content</td>
-            <td>OK</td>
-        </tr>
-    </table>
-                   ForbiddenException if the token is not assigned or it is assigned to a different processor than the caller
-</div>
+
+ <table class="invitechTable">
+ <caption>HTTP status codes</caption>
+ <tr>
+ <th>Code</th>
+ <th>Text</th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td>403</td>
+ <td>Forbidden</td>
+ <td>The token is not assigned or it is assigned to a different processor than the caller</td>
+ </tr>
+ <tr>
+ <td>204</td>
+ <td>No Content</td>
+ <td>OK</td>
+ </tr>
+ </table>
+
+ ForbiddenException if the token is not assigned or it is assigned to a different processor than the caller</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>version 1</dd>
