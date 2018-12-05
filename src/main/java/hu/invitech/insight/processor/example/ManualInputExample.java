@@ -168,15 +168,7 @@ public class ManualInputExample {
     private void onStart() {
         for (Server server : jsonDb.findAll(Server.class)) {
             try {
-                Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(server.getBaseUrl().endsWith("/") ? server.getBaseUrl() : server.getBaseUrl() + "/")
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .client(new OkHttpClient().newBuilder()
-                        .addInterceptor((chain) -> ManualInputExample.addAuthorizationHeader(chain, server.getToken()))
-                        .build())
-                    .build();
-
-                PlatformApi platform = retrofit.create(PlatformApi.class);
+                final PlatformApi platform = getPlatformApi(server);
                 retrofit2.Response<Void> response = platform.start(new Status(dataVersion, protocolVersion, new LinkedList<>())).execute();
                 if (response.code() == 403) {
                     jsonDb.remove(server, Server.class);
@@ -190,19 +182,23 @@ public class ManualInputExample {
     private void onStop() {
         for (Server server : jsonDb.findAll(Server.class)) {
             try {
-                Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(server.getBaseUrl().endsWith("/") ? server.getBaseUrl() : server.getBaseUrl() + "/")
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .client(new OkHttpClient().newBuilder()
-                        .addInterceptor((chain) -> ManualInputExample.addAuthorizationHeader(chain, server.getToken()))
-                        .build())
-                    .build();
-
-                PlatformApi platform = retrofit.create(PlatformApi.class);
+                final PlatformApi platform = getPlatformApi(server);
                 platform.stop();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private PlatformApi getPlatformApi(final Server server) {
+        Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(server.getBaseUrl().endsWith("/") ? server.getBaseUrl() : server.getBaseUrl() + "/")
+            .addConverterFactory(JacksonConverterFactory.create())
+            .client(new OkHttpClient().newBuilder()
+                .addInterceptor((chain) -> ManualInputExample.addAuthorizationHeader(chain, server.getToken()))
+                .build())
+            .build();
+
+        return retrofit.create(PlatformApi.class);
     }
 }

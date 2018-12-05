@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.POST;
 
+@SuppressWarnings("UnusedReturnValue")
 public interface PlatformApi {
     @POST("/v1")
     Call<Void> start(@Body Status status);
