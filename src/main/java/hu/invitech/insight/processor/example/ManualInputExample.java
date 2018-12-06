@@ -58,7 +58,12 @@ public class ManualInputExample {
             return null;
         });
 
-        path(CORE_PATH, () -> get("/version", (request, response) -> new VersionApi().getVersion()));
+        path(CORE_PATH, () -> {
+            get("/version", "application/json", (request, response) -> {
+                response.type("application/json");
+                return new VersionApi().getVersion();
+            });
+        });
 
         path("/v1", () -> {
             before(FUNCTION_PATH, app::authorize);
@@ -67,29 +72,41 @@ public class ManualInputExample {
             before(RESOURCE_PATH + "/*", app::authorize);
 
             path(FUNCTION_PATH, () -> {
-                get("", (request, response) -> new FunctionApi(request.session().attribute("server")).getFunctionMap(), objectMapper::writeValueAsString);
+                get("", "application/json", (request, response) -> {
+                    response.type("application/json");
+                    return new FunctionApi(request.session().attribute("server")).getFunctionMap();
+                }, objectMapper::writeValueAsString);
 
                 post(
                     "",
-                    (request, response) -> new FunctionApi(request.session().attribute("server")).callFunction(objectMapper.readValue(request.body() != null &&
-                        !request.body().isEmpty() ? request.body() : "{}", FunctionCall.class)),
+                    "application/json", (request, response) -> {
+                        response.type("application/json");
+                        return new FunctionApi(request.session().attribute("server")).callFunction(objectMapper.readValue(request.body() != null && !request.body().isEmpty() ?
+                            request.body() :
+                            "{}", FunctionCall.class));
+                    },
                     objectMapper::writeValueAsString
                 );
             });
 
             path(RESOURCE_PATH, () -> {
-                get("", (request, response) -> new ResourceApi(request.session().attribute("server")).getResourceTypeMap(), objectMapper::writeValueAsString);
+                get("", "application/json", (request, response) -> {
+                    response.type("application/json");
+                    return new ResourceApi(request.session().attribute("server")).getResourceTypeMap();
+                }, objectMapper::writeValueAsString);
 
-                post("", (request, response) -> {
+                post("", "application/json", (request, response) -> {
                     new ResourceApi(request.session().attribute("server")).addResource(objectMapper.readValue(request.body() != null && !request.body().isEmpty() ?
                         request.body() :
                         "{}", ResourceInfo.class));
+                    response.type("application/json");
                     response.status(204);
                     return "";
                 });
 
-                delete("/:id", (request, response) -> {
+                delete("/:id", "application/json", (request, response) -> {
                     new ResourceApi(request.session().attribute("server")).removeResource(Integer.parseInt(request.params(":id")));
+                    response.type("application/json");
                     response.status(204);
                     return "";
                 });
@@ -98,21 +115,26 @@ public class ManualInputExample {
             path(SERVER_PATH, () -> {
                 post(
                     ApiConstants.ASSIGN_SERVER_PATH,
-                    (request, response) -> new ServerApi().assignServer(objectMapper.readValue(
-                        request.body() != null && !request.body().isEmpty() ? request.body() : "{}",
-                        ServerInfo.class
-                    )),
+                    "application/json", (request, response) -> {
+                        response.type("application/json");
+                        return new ServerApi().assignServer(objectMapper.readValue(
+                            request.body() != null && !request.body().isEmpty() ? request.body() : "{}",
+                            ServerInfo.class
+                        ));
+                    },
                     objectMapper::writeValueAsString
                 );
 
-                post(ApiConstants.UNASSIGN_SERVER_PATH, (request, response) -> {
+                post(ApiConstants.UNASSIGN_SERVER_PATH, "application/json", (request, response) -> {
                     new ServerApi().unassignServer(objectMapper.readValue(request.body() != null && !request.body().isEmpty() ? request.body() : "{}", ServerInfo.class));
+                    response.type("application/json");
                     response.status(204);
                     return "";
                 });
 
-                post(ApiConstants.CHANGE_TOKEN_PATH, (request, response) -> {
+                post(ApiConstants.CHANGE_TOKEN_PATH, "application/json", (request, response) -> {
                     new ServerApi().changeToken(objectMapper.readValue(request.body() != null && !request.body().isEmpty() ? request.body() : "{}", ChangeToken.class));
+                    response.type("application/json");
                     response.status(204);
                     return "";
                 });
