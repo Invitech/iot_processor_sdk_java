@@ -60,16 +60,16 @@ public class FunctionApi implements FunctionInterface {
 
         ObjectNode data = ManualInputExample.objectMapper.createObjectNode();
         if (functionCall.getParameters().get("temp") != null) {
-            data.put("temp", functionCall.getParameters().get("temp"));
+            data.put("temp", Double.parseDouble(functionCall.getParameters().get("temp")));
         }
         if (functionCall.getParameters().get("humidity") != null) {
-            data.put("humidity", functionCall.getParameters().get("humidity"));
+            data.put("humidity", Double.parseDouble(functionCall.getParameters().get("humidity")));
         }
         if (functionCall.getParameters().get("pressure") != null) {
-            data.put("pressure", functionCall.getParameters().get("pressure"));
+            data.put("pressure", Double.parseDouble(functionCall.getParameters().get("pressure")));
         }
         if (functionCall.getParameters().get("battery") != null) {
-            data.put("battery", functionCall.getParameters().get("battery"));
+            data.put("battery", Double.parseDouble(functionCall.getParameters().get("battery")));
         }
 
         final PlatformApi platform = getPlatformApi(server);
