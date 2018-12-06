@@ -12,14 +12,12 @@ import hu.invitech.insight.processor.sdk.v1.function.FunctionCall;
 import hu.invitech.insight.processor.sdk.v1.function.FunctionInfo;
 import hu.invitech.insight.processor.sdk.v1.function.FunctionMap;
 import hu.invitech.insight.processor.sdk.v1.function.FunctionReturn;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+import static hu.invitech.insight.processor.example.ManualInputExample.getPlatformApi;
 import static spark.Spark.halt;
 
 public class FunctionApi implements FunctionInterface {
@@ -60,15 +58,6 @@ public class FunctionApi implements FunctionInterface {
             halt(404);
         }
 
-        Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(server.getBaseUrl().endsWith("/") ? server.getBaseUrl() : server.getBaseUrl() + "/")
-            .addConverterFactory(JacksonConverterFactory.create())
-            .client(new OkHttpClient().newBuilder()
-                .addInterceptor((chain) -> ManualInputExample.addAuthorizationHeader(chain, server.getToken()))
-                .build())
-            .build();
-        PlatformApi platform = retrofit.create(PlatformApi.class);
-
         ObjectNode data = ManualInputExample.objectMapper.createObjectNode();
         if (functionCall.getParameters().get("temp") != null) {
             data.put("temp", functionCall.getParameters().get("temp"));
@@ -83,6 +72,7 @@ public class FunctionApi implements FunctionInterface {
             data.put("battery", functionCall.getParameters().get("battery"));
         }
 
+        final PlatformApi platform = getPlatformApi(server);
         try {
             platform.sendData(new IncomingData(UUID.randomUUID().toString(), functionCall.getResourceId(), "MANUAL_INPUT", data)).execute();
         } catch (Exception e) {

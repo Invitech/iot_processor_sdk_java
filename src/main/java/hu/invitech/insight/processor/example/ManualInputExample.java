@@ -212,7 +212,7 @@ public class ManualInputExample {
         }
     }
 
-    private PlatformApi getPlatformApi(final Server server) {
+    public static PlatformApi getPlatformApi(final Server server) {
         Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(server.getBaseUrl().endsWith("/") ? server.getBaseUrl() : server.getBaseUrl() + "/")
             .addConverterFactory(JacksonConverterFactory.create())
