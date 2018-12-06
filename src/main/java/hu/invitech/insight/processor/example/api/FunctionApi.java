@@ -84,7 +84,7 @@ public class FunctionApi implements FunctionInterface {
         }
 
         try {
-            platform.sendData(new IncomingData(UUID.randomUUID().toString(), functionCall.getResourceId(), "MANUAL_INPUT", data));
+            platform.sendData(new IncomingData(UUID.randomUUID().toString(), functionCall.getResourceId(), "MANUAL_INPUT", data)).execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
