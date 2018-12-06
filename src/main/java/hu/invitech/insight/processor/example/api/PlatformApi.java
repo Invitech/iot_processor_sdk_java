@@ -9,12 +9,12 @@ import retrofit2.http.POST;
 
 @SuppressWarnings("UnusedReturnValue")
 public interface PlatformApi {
-    @POST("/v1")
+    @POST("v1")
     Call<Void> start(@Body Status status);
 
-    @POST("/data/v1")
+    @POST("data/v1")
     Call<Void> sendData(@Body IncomingData data);
 
-    @DELETE("/v1")
+    @DELETE("v1")
     Call<Void> stop();
 }
